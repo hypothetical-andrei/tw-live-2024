@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript">
+            if (document.addEventListener) {
+                document.addEventListener('contextmenu', function(e) {
+                    which(e);
+                    e.preventDefault();
+                }, false);
+            }
+
+            function which(event){
+                switch (event.button) {
+                    case 0:
+                        console.log('Left button clicked.');
+                        break;
+                    case 1:
+                        console.log('Middle button clicked.');
+                        break;
+                    case 2:
+                        console.log('Right button clicked.');
+                        break;
+                    default:
+                        alert('Unexpected code: ' + event.button);
+                }            
+            }			
+        </script>
+    </head>
+    <body onclick="console.log('body clicked')">
+		<form>
+			<input type="button" onclick="which(event)"  value="click me" />
+		</form>
+    </body>
+</html>

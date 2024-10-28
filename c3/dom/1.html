@@ -1,0 +1,27 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        window.onload = () => {
+            const btn = document.getElementById('btnAdd')
+            const content = document.getElementById('content')
+
+            const container = document.getElementById('container')
+
+            btn.onclick = () => {
+                const textContent = content.value
+                const div = document.createElement('div')
+                div.innerText = textContent
+                container.appendChild(div)
+            }
+        }
+    </script>
+</head>
+<body>
+    <input type="button" value="add" id="btnAdd">
+    <input type="text" id="content">
+    <div id="container"></div>
+</body>
+</html>

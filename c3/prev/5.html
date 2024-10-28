@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <script>
+            function f0() {
+                let n
+                setTimeout(() => {
+                    n = 100
+                    let e = new Event('task_complete')
+                    e.result = n
+                    window.dispatchEvent(e)
+                }, 1000)
+            }
+
+            f0()
+
+            window.addEventListener('task_complete', (evt) => {
+                console.log(evt.result)
+            })
+
+        </script>
+    </head>
+</html>

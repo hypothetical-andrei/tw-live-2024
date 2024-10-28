@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <form>
+            <label for="t1">Some text</label>
+            <input type="text" name="sometext" id=t1 value="sometext" />
+            
+            <input type="radio" name="choice" value="yes" />yes
+            <input type="radio" name="choice" value="no" />no
+        
+            <input type="checkbox" name="pet" value="cat"/>
+            <input type="checkbox" name="pet" value="dog" checked />
+        
+            <select name="country" id="s1">
+                <optgroup label=eu>
+                    <option value=fr>France</option>
+                    <option value=de>Germany</option>
+                </optgroup>
+                <optgroup label=na>
+                    <option value=mx>Mexico</option>
+                    <option value=ca>Canada</option>
+                </optgroup>
+            </select>
+
+            <input type="hidden" name="somehiddenstuff" id="somehiddenstuff" value="somecalculatedvalue">
+        
+            <input type="submit" value="Submit"/>
+        </form>
+    </body>
+</html>
