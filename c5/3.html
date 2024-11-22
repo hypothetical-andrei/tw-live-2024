@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		body {
+			margin: 0px;
+		}
+		.container {
+			display: grid;
+			height: 100vh;
+			grid-template-columns: 25% auto 25%;
+			grid-template-rows: 25% auto 25%;
+			grid-template-areas: 
+				"left-top . right-top"
+				"left-mid center right-mid"
+				"left-bottom right-bottom right-bottom"
+			;
+			grid-column-gap: 10px;
+			grid-row-gap: 10px;
+		}
+
+		.component {
+			border: 1px dashed lightblue;
+			box-sizing: border-box;
+			background-color: orange;
+			font-size: 4em;
+		}
+
+		.c1 {
+			grid-area: left-top;
+		}
+
+		.c2 {
+			grid-area: right-top;
+		}
+		.c3 {
+			grid-area: left-mid;
+		}
+		.c4 {
+			grid-area: center;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.c5 {
+			grid-area: right-mid;
+		}
+		.c6 {
+			grid-area: left-bottom;
+		}
+		.c7 {
+			grid-area: right-bottom;
+		}
+	
+
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="component c1">1</div>
+		<div class="component c2">2</div>
+		<div class="component c3">3</div>
+		<div class="component c4">4</div>
+		<div class="component c5">5</div>
+		<div class="component c6">6</div>
+		<div class="component c7">7</div>
+	</div>
+</body>
+</html>

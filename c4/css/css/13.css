@@ -1,0 +1,15 @@
+/* 0-1-0-0 */
+#d1 {
+    background-color: blueviolet;
+}
+
+/* 0-0-1-0 */
+.alfa {
+    background-color: greenyellow !important;
+}
+
+/* 0-0-0-1 */
+div {
+    background-color: orange !important;
+}
+

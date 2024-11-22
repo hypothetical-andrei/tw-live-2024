@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		:root {
+			--base-color: whitesmoke;
+			--positive-color: lightgreen;
+			--negative-color: tomato;
+		}
+
+		.content {
+			background-color: var(--base-color);
+		}
+
+		.btn {
+			background-color: var(--positive-color);
+			border-radius: 5px;
+			border: 0px;
+			padding: 0.3em 0.6em;
+		}
+
+		.danger {
+			background-color: var(--negative-color);
+		}
+
+	</style>
+</head>
+<body>
+	<div class="content">
+		<h1>some text</h1>
+		<form>
+			<input type="button" value="yes" class="btn">
+			<input type="button" value="no" class="btn danger">
+		</form>
+	</div>
+</body>
+</html>

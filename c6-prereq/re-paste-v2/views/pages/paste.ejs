@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+      hljs.initLineNumbersOnLoad()
+    </script>
+    <style>
+      .scrollable {
+        height: 90vh;
+        overflow-y: scroll;
+        border: 3px solid lightblue;
+      }
+
+      .hljs {
+        background-color: white;
+      }
+
+      #menu {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content:space-evenly;
+      }
+
+      button{
+        height: 45px;
+        width: 100px;
+      }
+
+      #copy {
+        background-color: orange;
+      }
+
+      #raw {
+        background-color: lightblue;
+      }
+
+      #home {
+        background-color: lightgreen;
+      }
+      
+
+    </style>
+    <script>
+      window.onload = () => {
+        const view = document.getElementById('view')
+        const viewContent = `<%- paste%>`
+        console.warn(viewContent)
+        // view.innerHTML = viewContent
+
+        const copyButton = document.getElementById('copy')
+        copyButton.onclick = () => {
+          const content = `<%- paste%>`
+          navigator.clipboard.writeText(content)
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="menu">
+      <button id="copy">Copy to clipboard</button>
+      <button id=raw onclick="location.href='raw/<%=key%>'">raw</button>
+      <button id=raw onclick="location.href='exec/<%=key%>'">exec</button>
+      <button id=home onclick="location.href='/'">new</button>
+    </div>
+    <div class='scrollable'>
+      <pre>
+        <code id=view><%= paste%></code>      
+      </pre>
+    </div>
+  </body>  
+</html>

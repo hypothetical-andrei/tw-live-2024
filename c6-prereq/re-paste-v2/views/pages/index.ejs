@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script>
+
+    <script>
+      // hljs.initHighlightingOnLoad()
+      document.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelectorAll('pre code').forEach((block) => {
+          hljs.highlightBlock(block)
+        })
+      })
+    </script>
+    <script>
+      window.onload = () => {
+        const editingArea = document.getElementById('editingArea')
+        const content = document.getElementById('content')
+        const codeForm = document.getElementById('codeForm')
+        const sendButton = document.getElementById('sendButton')        
+
+        editingArea.onpaste = (event) => {
+          let paste = (event.clipboardData || window.clipboardData).getData('text')
+          content.value = paste
+          editingArea.innerHTML = hljs.highlightAuto(paste).value
+          event.preventDefault()
+        }
+
+      }
+    </script>
+    <style>
+      .scrollable {
+        height: 90vh;
+        overflow-y: scroll;
+      }
+
+      body{
+        margin: 0px;
+        height: 100vh;
+        width: 100vw;
+      }
+
+      #page {
+        height: 100vh; 
+        width: 100vw;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
+
+      #sendButton {
+        position: fixed;
+        top: 0px;
+        right: 50vw;
+        height: 45px;
+        width: 100px;
+        background-color: lightgreen;
+      }
+
+/*      #page {
+        border: 3px solid lightblue;
+        box-sizing: border-box;
+      }*/
+
+      #editingWrapper {
+        height: 90vh;
+        white-space: pre-wrap !important;
+      }
+
+      #editingArea{
+        height: 85vh;
+        border: 3px dashed lightblue;
+        background-color: white;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div id="page">
+      Paste code here
+      <pre id=editingWrapper>
+        <code contenteditable id=editingArea>
+        </code>
+      </pre>
+      <form method="post" action="pastes">
+        <textarea name="content" id="content" style="display:none;"> </textarea>
+        <input type="submit" value="+"  id=sendButton />
+      </form>
+    </div>
+  </body>
+</html>

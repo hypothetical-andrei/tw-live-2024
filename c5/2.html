@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		body {
+			margin: 0px;
+		}
+		.container {
+			display: grid;
+			grid-template-columns: 25% auto 25%;
+			grid-template-rows: 25% auto 25%;
+			height: 100vh;
+		}
+
+		.component {
+			border: 3px dashed tomato;
+			box-sizing: border-box;
+			background-color: orange;
+			font-size: 4em;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.c1 {
+			grid-column-start: 1;
+			grid-column-end: 3;
+			grid-row-start: 1;
+			grid-row-end: 2;
+		}
+
+		.c2{
+			grid-column-start: 3;
+			grid-column-end: 3;
+			grid-row-start: 1;
+			grid-row-end: 2;
+		}
+		.c3{
+			grid-column-start: 1;
+			grid-column-end: 2;
+			grid-row-start: 2;
+			grid-row-end: 3;			
+		}
+		.c4{
+			grid-column-start: 2;
+			grid-column-end: 3;
+			grid-row-start: 2;
+			grid-row-end: 3;			
+		}
+		.c5{
+			grid-column-start: 3;
+			grid-column-end: 3;
+			grid-row-start: 2;
+			grid-row-end: 3;			
+		}
+		.c6{
+			grid-column-start: 1;
+			grid-column-end: 2;
+			grid-row-start: 3;
+			grid-row-end: 3;			
+		}
+		.c7{
+			grid-column-start: 3;
+			grid-column-end: 3;
+			grid-row-start: 3;
+			grid-row-end: 3;			
+		}
+
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="component c1">1</div>
+		<div class="component c2">2</div>
+		<div class="component c3">3</div>
+		<div class="component c4">4</div>
+		<div class="component c5">5</div>
+		<div class="component c6">6</div>
+		<div class="component c7">7</div>
+	</div>
+</body>
+</html>

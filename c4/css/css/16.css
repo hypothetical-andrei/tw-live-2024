@@ -1,0 +1,31 @@
+*{
+    border:1px solid black;
+    box-sizing:border-box;
+}
+
+#container{
+    position:relative;
+    left:100px;
+    width:400px;
+    height:400px;
+}
+
+#part1{
+    position:relative;
+    left:100px;
+}
+
+#part2{
+    position:relative;
+    right:100px;
+}
+
+#part3{
+    position:relative;
+    top:20px;
+}
+
+#part4{
+    position:relative;
+    bottom:20px;
+}

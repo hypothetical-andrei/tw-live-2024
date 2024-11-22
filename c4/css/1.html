@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript">
+			window.onload = () => {
+				document.querySelector('#d1').addEventListener('click', (event) =>{
+					console.log('clicked d1')
+				})
+				document.querySelector('#d2').addEventListener('click', (event) =>{
+					console.log('clicked d2')
+					event.stopPropagation()
+				})
+				document.querySelector('#d3').addEventListener('click', (event) =>{
+					console.log('clicked d3')
+				})
+			}
+		</script>
+	</head>
+	<body>
+		<div id=d1>
+			<div id=d2>
+				<div id=d3>some text</div>
+			</div>
+		</div>
+	</body>
+</html>

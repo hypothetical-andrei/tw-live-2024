@@ -1,0 +1,26 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script>
+        window.onload = () => {
+            const d1 = document.getElementById('d1')
+            const d2 = document.querySelector('#d2')
+
+            d1.addEventListener('alarm', () => {
+                console.log('i have been alarmed')
+            })
+
+            d2.addEventListener('click', () => {
+                const evt = new Event('alarm')
+                d1.dispatchEvent(evt)
+            })
+        }
+    </script>
+</head>
+<body>
+    <body>
+		<div id=d1>don't click me</div>
+		<div id=d2>click me!</div>
+	</body>
+</body>
+</html>

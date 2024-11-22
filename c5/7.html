@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		#container1 {
+			display: grid;
+			grid-template-columns: 30% repeat(4, 1fr) 100px;
+			grid-gap: 5px;
+			background-color: lightblue;
+			height: 300px;
+		}
+
+		#container1>div{
+			background-color: tomato;
+			padding: 5px;
+		}
+
+		#container2 {
+			display: grid;
+			grid-template-columns: 30% repeat(2, 1fr 0.5fr) 1fr;
+			grid-gap: 5px;
+			background-color: lightgreen;
+			height: 300px;
+		}
+
+		#container2>div{
+			background-color: orange;
+			padding: 5px;
+		}
+
+	</style>
+</head>
+<body>
+	<div id="container1">
+		<div>
+			i am 30% wide
+		</div>
+		<div> i am a quarter of what's left</div>
+		<div> i am a quarter of what's left</div>
+		<div> i am a quarter of what's left</div>
+		<div> i am a quarter of what's left</div>
+		<div> i am fixed width</div>
+	</div>
+		<div id="container2">
+		<div>
+			i am 30% wide
+		</div>
+		<div> i am a quarter of what's left</div>
+		<div> i am an eight of what's left</div>
+		<div> i am a quarter of what's left</div>
+		<div> i am an eight of what's left</div>
+		<div> i am a quarter of what's left</div>
+	</div>
+</body>
+</html>

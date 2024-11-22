@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		div {
+			height: 100px;
+			width: 100px;
+			background-color: orange;
+			display:flex;
+			align-items: center;
+			justify-content: center;
+			margin-left: 100px;
+			margin-bottom: 100px;
+		}
+
+		div.rotated {
+			transform: rotate(45deg);
+		}
+
+		div.skewed {
+			transform: skew(45deg);
+		}
+
+		div.rotated3d {
+			transform: rotate3d(0, 1, 0.5, 3.142rad);
+		}
+	</style>
+</head>
+<body>
+	<div class="basic">basic</div>
+	<div class="rotated">rotated</div>
+	<div class="skewed">skewed</div>
+	<div class="rotated3d">rotated 3d</div>
+</body>
+</html>

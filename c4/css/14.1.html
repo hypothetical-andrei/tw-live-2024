@@ -1,0 +1,23 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div:has(+ p) {
+            background-color: blueviolet;
+        }
+        div:has(> div) :nth-child(2) {
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    <div id="parent">
+        <div id="child-1">div child 1</div>
+        <p>paragraph</p>
+        <div id="child-2">div child 2</div>
+        <div id="child-3">div child 3</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="css/10.css" type="text/css" />
+        <style>
+            [class^=abc] {
+                background-color: thistle;
+            }
+            [class*=abc] {
+                background-color: tomato;
+            }
+            [class$=xyz] {
+                background-color: green;
+            }
+            [class~=abc] {
+                background-color: cyan;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="abcdef">first</div>
+        <div class="rstxyz">second</div>
+        <div class="abc def">third</div>
+        <div>fourth</div>
+    </body>
+</html>

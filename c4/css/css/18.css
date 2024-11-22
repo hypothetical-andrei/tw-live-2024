@@ -1,0 +1,44 @@
+*{
+    border:1px solid black;
+    box-sizing:border-box;
+}
+
+#container{
+    /* position:relative; */
+    left:100px;
+    width:400px;
+    height:400px;
+}
+
+#part1{
+    position:fixed;
+    left:0px;
+    top:0px;
+    background-color: orange;
+    height: 200px;
+    width: 200px;
+}
+
+#part2{
+    position:fixed;
+    right:0px;
+    top:0px;
+    background-color: tomato;
+    height: 200px;
+    width: 200px;}
+
+#part3{
+    position:fixed;
+    bottom:0px;
+    right:0px;
+    background-color: greenyellow;
+    height: 200px;
+    width: 200px;}
+
+#part4{
+    position:fixed;
+    left:0px;
+    bottom:0px;
+    background-color: blueviolet;
+    height: 200px;
+    width: 200px;}

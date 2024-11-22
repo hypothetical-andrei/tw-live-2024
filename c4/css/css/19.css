@@ -1,0 +1,29 @@
+*{
+    border:1px solid black;
+    box-sizing:border-box;
+}
+
+#part1 {
+    background-color: orange;
+    width:50%;
+    float:left;
+}
+
+#part2 {
+    background-color: lightblue;
+    width: 30%;
+    float:left;
+}
+
+#part3 {
+    clear:left;
+    width:50%;
+    background-color: tomato;
+    float:right;
+}
+
+#part4 {
+    clear:left;
+    width:50%;
+    float:right;
+}

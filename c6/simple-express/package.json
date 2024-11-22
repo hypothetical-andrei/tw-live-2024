@@ -1,0 +1,11 @@
+{
+    "type": "module",
+    "dependencies": {
+        "ejs": "^3.1.10",
+        "express": "^4.21.1",
+        "express-session": "^1.18.1"
+    },
+    "scripts": {
+        "start": "npx nodemon server.mjs"
+    }
+}

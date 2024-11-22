@@ -1,0 +1,37 @@
+*{
+    border:1px solid black;
+    box-sizing:border-box;
+}
+
+#container {
+    letter-spacing: -5px;
+}
+
+#container div{
+    height: 100px;
+    width: 100px;
+    display: inline-block;
+    text-align: center;
+    line-height: 100px;
+}
+
+
+#part1{
+    margin-top: 100px;
+    margin-right: 100px;
+}
+
+
+#part2{
+    margin-bottom: 100px;
+    margin-top: 200px;
+    margin-left: -100px;
+}
+
+#part3{
+    visibility: hidden;
+}
+
+#container #part4{
+    display: none;
+}
