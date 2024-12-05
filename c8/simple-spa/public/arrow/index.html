@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script type="module">
+    import store from './store.mjs'
+    import { reactive, html } from 'https://esm.sh/@arrow-js/core'
+
+    window.onload = async () => {
+      const root = document.getElementById('root')
+
+      const data = reactive({
+        books: [],
+        bookCandidate: {
+          title: '',
+          content: ''
+        },
+        selected: -1
+      })
+
+      await store.getAll()
+      
+      data.books = store.data
+
+      const addItem  = async () => {
+        await store.addOne(data.bookCandidate)
+        data.books = store.data
+      }
+
+      const deleteItem = async (id) => {
+        await store.deleteOne(id)
+        data.books = store.data
+      }
+
+      const saveItem = async (id) => {
+        await store.updateOne(id, data.bookCandidate)
+        data.books = store.data
+        data.selected = -1
+      }
+
+      const select = (id) => {
+        data.selected = id
+      }
+
+      const cancel = (id) => {
+        data.selected = -1
+      }
+
+      const bookRows = html`
+        <div>
+          ${() => data.books.map(e => {
+              if (e.id === data.selected) {
+                return html `<div>
+                  <input type=text id=titleInput placeholder=title @input="${e => { data.bookCandidate.title = e.target.value }}" value="${e.title}" />
+                  <input type=text id=contentInput placeholder=content @input="${e => { data.bookCandidate.content = e.target.value }}" value="${e.content}" />
+                  <input type=button value=save @click="${() => saveItem(e.id)}" />
+                  <input type=button value=cancel @click="${() => cancel(e.id)}" />
+                </div>`
+              } else {
+                return html`<div>
+                  ${e.title} contains ${e.content}
+                  <input type=button value=edit @click="${() => select(e.id)}" />
+                  <input type=button value=delete @click="${() => deleteItem(e.id)}" />
+                </div>`
+              }
+            })
+          }
+        </div>
+      `
+
+      const bookForm = html`<div>
+        <input type=text id=titleInput placeholder=title @input="${e => { data.bookCandidate.title = e.target.value }}" />
+        <input type=text id=contentInput placeholder=content @input="${e => { data.bookCandidate.content = e.target.value }}"/>
+        <input type=button value=add @click="${() => { addItem() }}" />
+      </div>`
+
+
+      const bookTemplate = html`
+        <h2>List of books</h2>
+        ${bookRows}
+        ${bookForm}
+      `
+
+      bookTemplate(root)
+    }
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+</html>

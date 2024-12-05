@@ -1,0 +1,12 @@
+{
+    "type": "module",
+    "scripts": {
+        "start": "npx nodemon server.mjs"
+    },
+    "dependencies": {
+        "dotenv": "^16.4.5",
+        "express": "^4.21.1",
+        "sequelize": "^6.37.5",
+        "sqlite3": "^5.1.7"
+    }
+}

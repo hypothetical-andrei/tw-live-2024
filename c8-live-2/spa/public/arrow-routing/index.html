@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fun with arrow</title>
+  <script type="module">
+    import { reactive, html } from 'https://esm.sh/@arrow-js/core'
+    import notFound from './error-404.mjs'
+    import bookTemplate from './book-template.mjs'
+    import bookDetails from './book-details.mjs'
+
+    const route = (hash, root) => {
+      clear(root)
+      const mappings = {
+        '^(|#/|#/books)$': bookTemplate,
+        '^#/books/[0-9]+$': bookDetails
+      }
+      
+      for (const mapping in mappings) {
+        const mappingRegex = new RegExp(mapping)
+        if (hash.match(mappingRegex)) {
+          mappings[mapping].template(root)
+          mappings[mapping].update()
+          return
+        }
+      }
+      notFound(root)
+    }
+
+    const clear = (element) => {
+      element.innerHTML = ''
+    }
+
+    window.onload = async () => {
+      const root = document.getElementById('root')
+      route(window.location.hash, root)
+    }
+
+    window.onhashchange = () => {
+      const root = document.getElementById('root')
+      route(window.location.hash, root)
+    }
+  </script>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+</html>

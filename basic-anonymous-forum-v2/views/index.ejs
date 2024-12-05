@@ -1,0 +1,148 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // const addForm = document.getElementById('add-post-frm')
+            const replyBtns = document.querySelectorAll('.reply-btn')
+            const replyForm = document.getElementById('reply-post-frm')
+
+            replyBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    replyForm.style.display = 'flex'
+                    const id = btn.getAttribute('data-id')
+                    console.warn(btn)
+                    const parent = btn.parentElement
+                    replyForm.querySelector('input[name="parentId"]').value = id
+                    parent.appendChild(replyForm)
+                })
+            })
+        })
+    </script>
+    <style>
+        .children {
+            position: relative;
+            left: 2em;
+        }
+
+        .created-at {
+            font-size: 0.8em;
+            color: gray;
+            font-style: italic;
+        }
+
+        #add-post-frm {
+            display: flex;
+            padding: 2em;
+            flex-direction: column;
+            width: 50%;
+            gap: 1em;
+        }
+
+        #reply-post-frm {
+            display: none;
+            padding: 2em;
+            flex-direction: column;
+            width: 50%;
+            gap: 1em;
+        }
+
+        .img-container {
+            padding: 1em;
+        }
+
+        .img-container img{
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .post-title {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- render posts with title, content and user alias -->
+    <ul>
+        <%
+        function renderReplies(posts, parentId) {
+          const children = posts.filter(post => post.parent_id === parentId)
+        
+          if (children.length > 0) { %>
+            <div class="children">
+                <% children.forEach(child => { %>
+                    <div class="post">
+                        <div class="post-title">
+                            <%= child.title %>
+                        </div>
+                        <div class="created-at">
+                            <%= child.created_at %>
+                        </div>
+                        <div class="post-content">
+                            <%= child.content %>
+                        </div>
+                        <div class="img-container">
+                            <a href="/uploads/<%= child.file_name %>">
+                                <img src="/uploads/<%= child.file_name %>" alt="">
+                            </a>           
+                        </div>
+                        <div class="btn-container">
+                            <input type="button" value="Reply" class="reply-btn" data-id="<%= child.id %>">
+                        </div>
+                        <!-- Recursive call to render child replies -->
+                        <%= renderReplies(posts, child.id) %>
+                    </div>
+                <% }) %>                
+            </div>
+          <% }
+        }
+        %>
+        
+        <!-- Display top-level posts with their replies -->
+        <% posts.filter(post => post.parent_id === null).forEach(topPost => { %>
+          <div class="post">
+            <div class="created-at">
+                <%= topPost.created_at %>
+            </div>
+            <div class="post-title">
+                <%= topPost.title %>
+            </div>
+            <div class="post-content">
+                <%= topPost.content %>
+            </div>
+            <div class="img-container">
+                <a href="/uploads/<%= topPost.file_name %>">
+                    <img src="/uploads/<%= topPost.file_name %>" alt="">
+                </a>
+            </div>
+            <div class="btn-container">
+                <input type="button" value="Reply" class="reply-btn" data-id="<%= topPost.id %>">
+            </div>
+            <%= renderReplies(posts, topPost.id) %>
+          </div>
+        <% }) %>
+        <a href="/posts?page=<%= page - 1 %>">Previous page</a>
+        <a href="/posts?page=<%= page + 1 %>">Next page</a>
+    </ul>
+    <!-- form to create a new post -->
+    <form action="/posts" method="POST" id="reply-post-frm" enctype="multipart/form-data">
+        <input type="text" name="title" placeholder="Title">
+        <input type="text" name="content" placeholder="Content">
+        <input type="text" name="alias" placeholder="Alias">
+        <input type="file" name="file" placeholder="Image">
+        <input type="hidden" name="parentId" placeholder="Parent">
+
+        <button type="submit">Reply</button>
+    </form>
+    <form action="/posts" method="POST" id="add-post-frm" enctype="multipart/form-data">
+        <input type="text" name="title" placeholder="Title">
+        <input type="text" name="content" placeholder="Content">
+        <input type="text" name="alias" placeholder="Alias">
+        <input type="file" name="file" placeholder="Image">
+        <button type="submit">Create Post</button>
+    </form>
+</body>
+</html>

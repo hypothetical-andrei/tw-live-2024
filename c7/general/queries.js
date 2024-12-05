@@ -31,7 +31,10 @@ try {
 			salary: 3000
 		}])
 
-	let people = await Person.findAll({ raw: true })
+	let people = await Person.findAll(
+		{ raw: true }
+	)
+
 	people = await Person.findAll({ 
 		where: {
 			name: 'john',
@@ -51,7 +54,7 @@ try {
 		raw: true
 	})
 
-	// where (salary > 100 and salary < 3000) or age between 20,25
+	// // // where (salary > 100 and salary < 3000) or age between 20,25
 	people = await Person.findAll({ 
 		where: {
 			[Op.or]: [{

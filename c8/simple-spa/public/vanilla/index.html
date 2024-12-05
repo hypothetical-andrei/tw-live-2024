@@ -1,0 +1,228 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+  <script>
+    let data = []
+    let SERVER = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
+
+    const loadAll = async () => {
+      const response = await fetch(`${SERVER}/books`)
+      if (!response.ok) {
+        throw response
+      }
+      const data = await response.json()
+      return data
+    }
+
+      
+    const booksView = Handlebars.compile(`
+			<h1>Book list</h1>
+			<table>
+				{{#each model}}
+					<tr>
+						<td>{{this.title}}</td>
+						<td>{{this.content}}</td>
+						<td>
+							<button class=delete data-id={{this.id}}>
+								Delete
+							</button>
+						</td>
+						<td>
+							<button class=edit data-id={{this.id}}>
+								Edit
+							</button>
+						</td>
+					</tr>
+				{{/each}}
+			</table>
+			<input type=button value=add id=addButton />
+		`)
+
+    const addBookView = Handlebars.compile(`
+			<h1>Add a book</h1>
+			<div>
+        <input type=text id=title />
+      </div>
+      <div>
+        <input type=text id=content />
+      </div>
+      <div>
+        <input type=button value=add id=addButton />
+      </div>
+		`)
+
+    const editBookView = Handlebars.compile(`
+			<h1>Edit a book</h1>
+			<div>
+        <input type=text id=title />
+      </div>
+      <div>
+        <input type=text id=content />
+      </div>
+      <div>
+        <input type=button value=save id=saveButton />
+      </div>
+		`)
+
+    const render = (view, model) => {
+			const ui = document.getElementById('ui')
+			const rendered = view({ model })
+			ui.innerHTML = rendered
+			return ui
+		}
+
+    window.onload = async () => {
+      const viewDefinition = getView(window.location.hash)
+
+      if (!viewDefinition) {
+        console.log('unknown view')
+        console.warn(window.location.hash)
+      }
+
+			if (viewDefinition.onEnter) {
+				await viewDefinition.onEnter()	
+			}
+
+      const ui = render(viewDefinition.view, data)
+
+      if (viewDefinition.onRendered) {
+				await viewDefinition.onRendered(ui)
+			}
+
+    }
+
+    window.onhashchange = async () => {
+			const viewDefinition = getView(window.location.hash)
+
+			if (viewDefinition.onEnter) {
+				await viewDefinition.onEnter()	
+			}
+
+			const ui = render(viewDefinition.view, data)
+
+			if (viewDefinition.onRendered) {
+				await viewDefinition.onRendered(ui)
+			}
+		}
+
+    const getView = (hash) => {
+      const mappings = {
+        '^(|#/|#/books)$': {
+          view: booksView,
+          name: 'booksView',
+          onEnter: async () => {
+            data = await loadAll()
+          }, 
+          onRendered: (ui) => {
+            ui.querySelector('#addButton').onclick = () => {
+							window.location = `${SERVER}/vanilla/#/add-book`
+						}
+
+            ui.querySelectorAll('button.delete').forEach((e) => {
+							e.onclick = async (evt) => {
+								const id = evt.target.getAttribute('data-id')
+								const response = await fetch(`${SERVER}/books/${id}`, {
+									method: 'DELETE'
+								})
+								if (!response.ok) {
+									throw response
+								} else {
+                  window.location.reload(true)
+									// window.location = `${SERVER}/vanilla/#/books`
+								}
+							}
+						})
+
+            ui.querySelectorAll('button.edit').forEach((e) => {
+							e.onclick = (evt) => {
+                console.warn(evt)
+								const id = evt.target.getAttribute('data-id')
+								window.location = `${SERVER}/vanilla/#/books/${id}`
+							}
+						})
+          }
+        },
+        '#/add-book': {
+          view: addBookView,
+					name: 'add',
+          onRendered: (ui) => {
+						const titleInput = ui.querySelector('#title')
+						const contentInput = ui.querySelector('#content')
+						const addButton = ui.querySelector('#addButton')
+
+						addButton.onclick = async () => {
+							const response = await fetch(`${SERVER}/books`, {
+								method: 'POST',
+								headers: {
+									'Content-Type': 'application/json'
+								},
+								body: JSON.stringify({
+									title: titleInput.value,
+									content: contentInput.value
+								})
+							})
+							if (!response.ok) {
+								throw response
+							} else {
+								window.location = `${SERVER}/vanilla/#/books`
+							}
+						}
+					}
+        },
+        '#/books/([0-9]+)': {
+          view: editBookView,
+					name: 'edit',
+          onEnter: async () => {
+						const param = window.location.hash.split('/').pop()
+						const response = await fetch(`${SERVER}/books/${param}`)
+						if (!response.ok) {
+								throw response
+						} else {
+							data = await response.json()
+						}
+					},
+          onRendered: () => {
+						const param = window.location.hash.split('/').pop()
+						const titleInput = ui.querySelector('#title')
+						titleInput.value = data.title
+						const contentInput = ui.querySelector('#content')
+						contentInput.value = data.content
+						const saveButton = ui.querySelector('#saveButton')
+						saveButton.onclick = async () => {
+							const response = await fetch(`${SERVER}/books/${param}`, {
+								method: 'PUT',
+								headers: {
+									'Content-Type': 'application/json'
+								},
+								body: JSON.stringify({
+									title: titleInput.value,
+									content: contentInput.value
+								})
+							})
+							if (!response.ok) {
+								throw response
+							} else {
+								window.location = `${SERVER}/vanilla/#/books`
+							}
+						}
+					}
+        }
+      }
+
+      for (const mapping in mappings) {
+				const mappingRegex = new RegExp(mapping)
+				if (hash.match(mappingRegex)) {
+					return mappings[mapping]
+				}
+			}
+    }
+  </script>
+</head>
+<body>
+  <div id="ui"></div>
+</body>
+</html>

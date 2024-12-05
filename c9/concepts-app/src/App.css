@@ -1,0 +1,52 @@
+body {
+  margin: 0px;
+}
+
+.app {
+  background-color: gainsboro;
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: 20% auto;
+  grid-template-columns: 20% auto;
+  grid-template-areas: 
+    "header header"
+    "aside main"
+  ;
+}
+
+.app .app-header {
+  grid-area: header;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  color: whitesmoke;
+  font-size: 3em;
+}
+
+.app .app-aside {
+  grid-area: aside;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 0.2em solid black;
+}
+
+.app .app-aside article {
+  min-height: 10vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app .app-aside article:hover {
+  background-color: white;
+}
+
+.app .app-main {
+  grid-area: main;
+  padding: 2em;
+}
